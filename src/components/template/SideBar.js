@@ -53,9 +53,6 @@ export default class Menu extends Component {
         });
     }
 
-    componentWillMount() {
-    }
-
     render() {
         return (
             <aside className="main-sidebar">

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import $ from "../../../public/js/jquery.min"
 import menu from "../../Menu";
 
 export default class Menu extends Component {
@@ -19,10 +20,17 @@ export default class Menu extends Component {
         return classCss;
     }
 
+    setItemActive(idItemMenu) {
+        $("li.active").removeClass("active");
+        $(`#${idItemMenu}`).addClass("active");
+    }
+
     buildMenu(menu) {
         return menu.map((item, indice) => {
             return this.hasChildrens(item) ? (
-                <li key={indice} className={this.getClassCssToItem(item)}>
+                <li key={indice} id={item.id}
+                    onClick={() => this.setItemActive(item.id)}
+                    className={this.getClassCssToItem(item)}>
                             <a href="#">
                                 <i className={item.icon}></i>
                                 <span>{item.text}</span>
@@ -34,7 +42,9 @@ export default class Menu extends Component {
                                 { this.buildMenu(item.childrens)}
                             </ul>
                 </li>) :
-                (<li key={indice} className={this.getClassCssToItem(item)}>
+                (<li key={indice} id={item.id}
+                     onClick={() => this.setItemActive(item.id)}
+                     className={this.getClassCssToItem(item)}>
                     <a href="#">
                         <i className={item.icon}></i>
                         <span>{item.text}</span>

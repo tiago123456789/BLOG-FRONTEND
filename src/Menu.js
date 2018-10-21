@@ -1,12 +1,14 @@
 const menu = [
     {
         active: true,
+        id: "dashboard",
         icon: "fa fa-dashboard",
         text: "Dashboard",
         url: "/"
     },
     {
         active: false,
+        id: "tag",
         icon: "fa fa-tags",
         text: "Tag",
         childrens: [

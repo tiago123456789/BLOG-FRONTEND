@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Header from "./components/template/Header";
+import PainelAdmin from "./components/PainelAdmin";
 
-ReactDOM.render(<Header/>, document.getElementById("root"));
+ReactDOM.render(<PainelAdmin/>, document.getElementById("root"));

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import $ from "../../../public/js/jquery.min"
 import menu from "../../Menu";
+import {Link} from "react-router-dom";
 
 export default class Menu extends Component {
 
@@ -45,10 +46,10 @@ export default class Menu extends Component {
                 (<li key={indice} id={item.id}
                      onClick={() => this.setItemActive(item.id)}
                      className={this.getClassCssToItem(item)}>
-                    <a href="#">
+                    <Link to={item.url} >
                         <i className={item.icon}></i>
                         <span>{item.text}</span>
-                    </a>
+                    </Link>
                 </li>)
         });
     }

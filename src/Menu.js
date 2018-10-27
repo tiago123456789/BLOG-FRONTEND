@@ -20,7 +20,7 @@ const menu = [
             {
                 icon: "fa fa-list-ul",
                 text: "List tags",
-                url: "/tag/novo"
+                url: "/tag"
             }
         ]
     }

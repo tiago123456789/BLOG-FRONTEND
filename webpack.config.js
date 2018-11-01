@@ -1,7 +1,8 @@
 const webpack = require("webpack");
+require("babel-polyfill");
 
 module.exports = {
-    entry: "./src/App.js",
+    entry: ["babel-polyfill", "./src/App.js"],
     output: {
         path: __dirname + "/public",
         filename: "bundle.js"
@@ -25,7 +26,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: "babel-loader",
                 query: {
-                    presets: ["es2015", "react"]
+                    presets: ["es2015", "react", "stage-2"]
                 }
             },
             {

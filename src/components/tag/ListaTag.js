@@ -1,10 +1,35 @@
 import React, { Component } from "react";
-import Panel from "../template/Panel";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-export default class ListaTag extends Component {
+import Panel from "../template/Panel";
+import { listar } from "./Actions";
+
+class ListaTag extends Component {
 
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        this.props.listar();
+    }
+
+    getBodyTable() {
+        // console.log(this.props.tags);
+        // return this.props.tags.map((tag, indice) => (
+        //     <tr key={indice}>
+        //         <td>{tag}</td>
+        //         <td>
+        //             <Button size="sm" color="warning">
+        //                 <i className="fa fa-pencil"></i>
+        //             </Button>
+        //             <Button size="sm" color="danger">
+        //                 <i className="fa fa-trash"></i>
+        //             </Button>
+        //         </td>
+        //     </tr>
+        // ))
     }
 
     render() {
@@ -18,20 +43,14 @@ export default class ListaTag extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Tag 1</td>
-                            <td>
-                                <button className="btn btn-warning">
-                                    <i className="fa fa-pencil"></i>
-                                </button>&nbsp;
-                                <button className="btn btn-danger">
-                                    <i className="fa fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        { this.getBodyTable() }
                     </tbody>
                 </table>
             </Panel>
         )
     }
 }
+
+const mapStateToProps = (state) => ({ tags: state.tag.tags });
+const mapDispathToProps = (dispath) => bindActionCreators({ listar: listar }, dispath);
+export default connect(mapStateToProps, mapDispathToProps)(ListaTag);

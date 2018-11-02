@@ -4,6 +4,7 @@ import Header from './template/Header';
 import SideBar from './template/SideBar';
 import WrapperContent from "./template/WrapperContent";
 import ListaTag from "./tag/ListaTag";
+import NovaTag from "./tag/NovaTag";
 
 
 export default class PainelAdmin extends Component {
@@ -15,7 +16,8 @@ export default class PainelAdmin extends Component {
                 <Header />
                 <SideBar />
                 <WrapperContent >
-                    <Route path="/tag" component={ListaTag}/>
+                    <Route exact path="/tag" component={ListaTag}/>
+                    <Route exact path="/tag/nova" component={NovaTag}/>
                 </WrapperContent>
             </div>
         </HashRouter>

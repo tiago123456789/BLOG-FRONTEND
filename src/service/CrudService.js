@@ -11,7 +11,7 @@ export default class CrudService extends AbstractService {
     findAll() {
         return this.getClient(this._isOperationsNeedAuthorization)
             .get(this.getUrl(`${this._endpoint}`))
-            .then(this.getDataOfResponse());
+            .then(this.getDataOfResponse);
     }
 
     findById(id) {

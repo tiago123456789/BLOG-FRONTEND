@@ -1,3 +1,5 @@
+import App from "../config/App";
+
 export default class CredentialService {
 
     getAccessTokenWithPrefix() {

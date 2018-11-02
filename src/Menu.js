@@ -15,7 +15,7 @@ const menu = [
             {
                 icon: "fa fa-tag",
                 text: "New tag",
-                url: "/tag/novo"
+                url: "/tag/nova"
             },
             {
                 icon: "fa fa-list-ul",

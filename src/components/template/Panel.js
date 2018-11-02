@@ -2,7 +2,7 @@ import React from "react";
 
 export default (props) => {
     return (
-        <div className={`box box-${props.type}`}>
+        <div className={`panel box box-${props.type}`}>
             { props.title &&
               <div className="box-header">
                   <h1 className="box-title">{props.title}</h1>

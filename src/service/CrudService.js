@@ -32,6 +32,6 @@ export default class CrudService extends AbstractService {
 
     save(data) {
         return this.getClient(this._isOperationsNeedAuthorization)
-                   .post(this.getUrl(`${this._endpoint}`, data));
+            .post(this.getUrl(`${this._endpoint}`), data);
     }
 }

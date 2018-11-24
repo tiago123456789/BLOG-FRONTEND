@@ -20,11 +20,11 @@ class ListaTag extends Component {
     getBodyTable() {
         return (this.props.tags || []).map((tag, indice) => (
             <tr key={indice}>
-                <td>{tag}</td>
+                <td>{tag.name}</td>
                 <td>
                     <Button size="sm" color="warning">
                         <i className="fa fa-pencil"></i>
-                    </Button>
+                    </Button>&nbsp;
                     <Button size="sm" color="danger">
                         <i className="fa fa-trash"></i>
                     </Button>

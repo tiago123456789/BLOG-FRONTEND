@@ -27,7 +27,7 @@ const save = (newTag) => {
                 cleanForm()
             ]);
         } catch(error) {
-            toastr.error("Tag", error.response.data.msg);
+            toastr.error("Tag", ErrorResponseService.getMsgErroInReponse(error));
             dispatch(cleanForm())
         }
     }
@@ -46,4 +46,18 @@ const cleanForm = () => {
     return { type: TypeAction.CLEAN_FORM, data: { name: "" }}
 };
 
-export { listar, save, cleanForm, modifiedDataForm }
+const remove = (id) => {
+    return async dispatch => {
+        try {
+            await tagService.remove(id);
+            toastr.success("Tag", "Deleted success!");
+            return dispatch(listar());
+        } catch(error) {
+            toastr.error("Tag", ErrorResponseService.getMsgErroInReponse(error));
+        }
+    }
+};
+
+
+
+export { listar, save, remove, cleanForm, modifiedDataForm }

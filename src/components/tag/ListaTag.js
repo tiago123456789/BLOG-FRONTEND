@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import Panel from "../template/Panel";
-import { listar } from "./Actions";
+import { listar, remove } from "./Actions";
 import Button from "../template/Button";
 import {Link} from "react-router-dom";
 
@@ -25,7 +25,7 @@ class ListaTag extends Component {
                     <Button size="sm" color="warning">
                         <i className="fa fa-pencil"></i>
                     </Button>&nbsp;
-                    <Button size="sm" color="danger">
+                    <Button size="sm" color="danger" action={() => this.props.remove(tag._id)}>
                         <i className="fa fa-trash"></i>
                     </Button>
                 </td>
@@ -71,5 +71,5 @@ class ListaTag extends Component {
 }
 
 const mapStateToProps = (state) => ({ tags: state.tag.tags });
-const mapDispathToProps = (dispatch) => bindActionCreators({ listar: listar }, dispatch);
+const mapDispathToProps = (dispatch) => bindActionCreators({ listar: listar, remove: remove }, dispatch);
 export default connect(mapStateToProps, mapDispathToProps)(ListaTag);

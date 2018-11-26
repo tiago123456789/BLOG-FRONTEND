@@ -1,4 +1,4 @@
-class ErrorResponseService {
+export default class ErrorResponseService {
 
 
     static getMsgErroInReponse(error) {

@@ -9,8 +9,8 @@ import ReduxToastr from 'react-redux-toastr'
 
 import "./style/react-redux-toastr.min.css";
 
-import rootReducer from "./Reducer";
-import App from "./App";
+import rootReducer from "./main/Reducer";
+import App from "./main/App";
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 const store = applyMiddleware(ReduxMulti, ReduxThunk)(createStore)(rootReducer, devTools);

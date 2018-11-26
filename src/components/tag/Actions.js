@@ -1,6 +1,7 @@
 import { toastr } from "react-redux-toastr";
 
 import TagService from "./../../service/TagService";
+import ErrorResponseService from "./../../service/ErrorResponseService";
 import TypeAction from "../../config/TypeAction";
 
 const tagService = new TagService();
@@ -58,6 +59,31 @@ const remove = (id) => {
     }
 };
 
+const update = (id, data) => {
+    return async dispatch => {
+        try {
+            await tagService.update(id, data);
+            toastr.success("Tag", "Updated success!");
+            return dispatch([
+                cleanForm()
+            ]);
+        } catch(error) {
+            toastr.error("Tag", ErrorResponseService.getMsgErroInReponse(error));
+        }
+    }
+};
+
+const findById = (id) => {
+  return async dispatch => {
+      try {
+          const result = await tagService.findById(id);
+          return dispatch({ type: TypeAction.FIND_ID, data: { name: result.name } })
+      } catch(error) {
+          toastr.error("Tag", ErrorResponseService.getMsgErroInReponse(error));
+      }
+  }
+};
 
 
-export { listar, save, remove, cleanForm, modifiedDataForm }
+
+export { listar, save, update, findById, remove, cleanForm, modifiedDataForm }

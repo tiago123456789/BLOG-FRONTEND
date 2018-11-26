@@ -13,8 +13,9 @@ export default (state = initialState, action) => {
         case TypeAction.ADD_TAG:
         case TypeAction.CLEAN_FORM:
             return {...state, ...data };
+        case TypeAction.FIND_ID:
+            return {...state, name: data.name };
         case TypeAction.MODIFIED_VALUE_FIELD:
-
             return {...state, "name": action.data.name };
         default:
             return state;

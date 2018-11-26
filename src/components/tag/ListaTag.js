@@ -22,9 +22,9 @@ class ListaTag extends Component {
             <tr key={indice}>
                 <td>{tag.name}</td>
                 <td>
-                    <Button size="sm" color="warning">
+                    <Link to={`/tag/${tag._id}`} className="btn btn-sm btn-warning" >
                         <i className="fa fa-pencil"></i>
-                    </Button>&nbsp;
+                    </Link>&nbsp;
                     <Button size="sm" color="danger" action={() => this.props.remove(tag._id)}>
                         <i className="fa fa-trash"></i>
                     </Button>

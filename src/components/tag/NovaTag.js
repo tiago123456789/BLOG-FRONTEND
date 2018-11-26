@@ -6,7 +6,7 @@ import Button from "../template/Button";
 
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import { modifiedDataForm, save } from "./Actions";
+import { modifiedDataForm, save, update, findById } from "./Actions";
 
 class NovaTag extends Component {
 
@@ -15,8 +15,23 @@ class NovaTag extends Component {
         this.save = this.save.bind(this);
     }
 
+    getIdTagEdition() {
+        const id = this.props.match.params.id || null;
+        return id;
+    }
+
     save() {
-        this.props.save({ name: this.props.name })
+        const id = this.getIdTagEdition();
+        if (id) {
+            this.props.update(id, { name: this.props.name })
+        } else {
+            this.props.save({ name: this.props.name })
+        }
+    }
+
+    componentWillMount() {
+        const id = this.getIdTagEdition();
+        if (id) this.props.findById(id);
     }
 
     render() {
@@ -50,6 +65,9 @@ const mapStateToProps = (state) => {
     return { name: state.tag.name };
 };
 const mapDispathToProps = (dispatch) => {
-    return bindActionCreators({ modifiedDataForm: modifiedDataForm, save: save }, dispatch);
+    return bindActionCreators({
+        update: update, findById: findById,
+        modifiedDataForm: modifiedDataForm, save: save
+    }, dispatch);
 };
 export default connect(mapStateToProps, mapDispathToProps)(NovaTag);

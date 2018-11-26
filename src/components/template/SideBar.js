@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import $ from "../../../public/js/jquery.min"
-import menu from "../../Menu";
+import menu from "../../main/Menu";
 import {Link} from "react-router-dom";
 
 export default class Menu extends Component {

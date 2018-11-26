@@ -31,6 +31,7 @@ class NovaTag extends Component {
 
     componentWillMount() {
         const id = this.getIdTagEdition();
+        console.log(id);
         if (id) this.props.findById(id);
     }
 

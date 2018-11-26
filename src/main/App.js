@@ -10,8 +10,8 @@ export default () => (
         <Switch>
             <PainelAdmin>
                 <Route exact path="/tag" component={ListaTag}/>
-                <Route exact path="/tag/:id" component={NovaTag}/>
                 <Route exact path="/tag/nova" component={NovaTag}/>
+                <Route exact path="/tag/:id/editar" component={NovaTag}/>
             </PainelAdmin>
             <Redirect to="/tag" />
         </Switch>

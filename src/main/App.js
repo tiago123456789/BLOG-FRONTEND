@@ -4,11 +4,14 @@ import { HashRouter as Routes, Route, Redirect, Switch } from "react-router-dom"
 import PainelAdmin from "../components/PainelAdmin";
 import ListaTag from "../components/tag/ListaTag";
 import NovaTag from "../components/tag/NovaTag";
+import ListaCategoria from "../components/categoria/ListaCategoria";
 
 export default () => (
     <Routes>
         <Switch>
             <PainelAdmin>
+                <Route exact path="/categoria" component={ListaCategoria}/>
+
                 <Route exact path="/tag" component={ListaTag}/>
                 <Route exact path="/tag/nova" component={NovaTag}/>
                 <Route exact path="/tag/:id/editar" component={NovaTag}/>

@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import Panel from "../template/Panel";
+import NotFoundRegister from "./../common/NotFoundRegister"
+
 import { listar, remove } from "./Actions";
 import Button from "../template/Button";
 import {Link} from "react-router-dom";
@@ -61,9 +63,7 @@ class ListaTag extends Component {
                             </tbody>
                         </table>
                     }
-                    { !this.hasTags() &&
-                        <p className="text-bold">Nenhum registro encontrado!</p>
-                    }
+                    <NotFoundRegister display={!this.hasTags()} />
                 </Panel>
             </div>
         )

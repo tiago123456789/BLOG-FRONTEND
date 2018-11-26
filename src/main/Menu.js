@@ -23,6 +23,24 @@ const menu = [
                 url: "/tag"
             }
         ]
+    },
+    {
+        active: false,
+        id: "category",
+        icon: "fa fa-list",
+        text: "Categoria",
+        childrens: [
+            {
+                icon: "fa fa-tag",
+                text: "Nova categoria",
+                url: "/categoria/nova"
+            },
+            {
+                icon: "fa fa-list-ul",
+                text: "Lista de categorias",
+                url: "/categoria"
+            }
+        ]
     }
 ];
 

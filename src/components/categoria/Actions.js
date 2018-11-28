@@ -10,4 +10,11 @@ const findAll = () => {
     }
 };
 
-export  { findAll };
+const remove = (id) => {
+  return async dispatch => {
+      await categoriaService.remove(id);
+      return dispatch(findAll());
+  }
+};
+
+export  { findAll, remove };

@@ -5,7 +5,8 @@ import {bindActionCreators} from "redux";
 
 import Panel from "../template/Panel";
 import Button from "../template/Button";
-import { findAll } from "./Actions";
+import NotFoundRegister from "./../common/NotFoundRegister";
+import { findAll, remove } from "./Actions";
 
 class ListaCategoria extends Component {
 
@@ -17,16 +18,20 @@ class ListaCategoria extends Component {
         this.props.findAll();
     }
 
+    hasCategories() {
+        return this.props.categories.length > 0;
+    }
+
     getBodyTable() {
         return this.props.categories.map((item, indice) => {
             return (
                 <tr key={indice}>
                     <td>{item.description}</td>
                     <td>
-                        <Link to={`/tag/${tag._id}/editar`} className="btn btn-sm btn-warning" >
+                        <Link to={`/tag/${item._id}/editar`} className="btn btn-sm btn-warning" >
                             <i className="fa fa-pencil"></i>
                         </Link>&nbsp;
-                        <Button size="sm" color="danger" action={() => this.props.remove(tag._id)}>
+                        <Button size="sm" color="danger" action={() => this.props.remove(item._id)}>
                             <i className="fa fa-trash"></i>
                         </Button>
                     </td>
@@ -46,17 +51,20 @@ class ListaCategoria extends Component {
                 <br/>
                 <br/>
                 <Panel type="primary" title="Categorias">
-                    <table className="table table-striped text-center">
-                        <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {this.getBodyTable()}
-                        </tbody>
-                    </table>
+                    { this.hasCategories() &&
+                        <table className="table table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {this.getBodyTable()}
+                            </tbody>
+                        </table>
+                    }
+                    <NotFoundRegister display={!this.hasCategories()} />
                 </Panel>
             </div>
         )
@@ -64,5 +72,5 @@ class ListaCategoria extends Component {
 }
 
 const mapStateToProps = (state) => ({ categories: state.category.categories });
-const mapDispatchToProps = (dispatch) => bindActionCreators({ findAll: findAll }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ remove: remove, findAll: findAll }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ListaCategoria);

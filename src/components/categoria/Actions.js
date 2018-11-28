@@ -1,5 +1,8 @@
+import { toastr } from "react-redux-toastr";
+
 import CategoriaService from "./../../service/CategoriaService";
 import TypeAction from "../../config/TypeAction";
+import ErrorResponseService from "../../service/ErrorResponseService";
 
 const categoriaService  = new CategoriaService();
 
@@ -17,4 +20,26 @@ const remove = (id) => {
   }
 };
 
-export  { findAll, remove };
+const changeFieldInput = (value) => {
+    return { type: TypeAction.MODIFIED_VALUE_FIELD, data: { description: value }};
+};
+
+const save = (newData) => {
+    return async dispatch => {
+        try {
+            await categoriaService.save(newData);
+            toastr.success("Category", "Saved success!");
+            return dispatch(cleanForm());
+        } catch (error) {
+            console.log(error.response);
+            toastr.error(ErrorResponseService.getMsgErroInReponse(error));
+        }
+
+    }
+};
+
+const cleanForm = () => {
+    return { type: TypeAction.CLEAN_FORM, data: { description: "" }}
+};
+
+export  { findAll, remove, changeFieldInput, save };

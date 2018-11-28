@@ -1,7 +1,8 @@
 import TypeAction from "../../config/TypeAction";
 
 const stateInitial = {
-    categories: []
+    categories: [],
+    description: ""
 };
 
 export default (state = stateInitial, action) => {
@@ -9,6 +10,9 @@ export default (state = stateInitial, action) => {
     switch (action.type) {
         case TypeAction.LISTAR_CATEGORY:
             return { ...state, ...data };
+        case TypeAction.MODIFIED_VALUE_FIELD:
+        case TypeAction.CLEAN_FORM:
+            return { ...state, description: data.description };
         default:
             return state;
     }

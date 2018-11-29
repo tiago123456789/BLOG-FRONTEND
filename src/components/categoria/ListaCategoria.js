@@ -28,7 +28,7 @@ class ListaCategoria extends Component {
                 <tr key={indice}>
                     <td>{item.description}</td>
                     <td>
-                        <Link to={`/tag/${item._id}/editar`} className="btn btn-sm btn-warning" >
+                        <Link to={`/categoria/${item._id}/editar`} className="btn btn-sm btn-warning" >
                             <i className="fa fa-pencil"></i>
                         </Link>&nbsp;
                         <Button size="sm" color="danger" action={() => this.props.remove(item._id)}>

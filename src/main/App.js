@@ -13,6 +13,7 @@ export default () => (
             <PainelAdmin>
                 <Route exact path="/categoria" component={ListaCategoria}/>
                 <Route exact path="/categoria/nova" component={NovaCategoria}/>
+                <Route exact path="/categoria/:id/editar" component={NovaCategoria}/>
 
                 <Route exact path="/tag" component={ListaTag}/>
                 <Route exact path="/tag/nova" component={NovaTag}/>

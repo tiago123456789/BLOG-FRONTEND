@@ -31,15 +31,37 @@ const save = (newData) => {
             toastr.success("Category", "Saved success!");
             return dispatch(cleanForm());
         } catch (error) {
-            console.log(error.response);
             toastr.error(ErrorResponseService.getMsgErroInReponse(error));
         }
 
     }
 };
 
+const update = (id, dataModified) => {
+    return async (dispatch) => {
+        try {
+            await categoriaService.update(id, dataModified);
+            toastr.success("Category", "Updated success!");
+            return dispatch(cleanForm());
+        } catch (error) {
+            toastr.error(ErrorResponseService.getMsgErroInReponse(error));
+        }
+    }
+};
+
+const findById = (id) => {
+  return async dispatch => {
+      try {
+          const result = await categoriaService.findById(id);
+          return dispatch({ type: TypeAction.FIND_ID, data: { description: result.description }});
+      } catch (error) {
+          toastr.error(ErrorResponseService.getMsgErroInReponse(error));
+      }
+  }
+};
+
 const cleanForm = () => {
     return { type: TypeAction.CLEAN_FORM, data: { description: "" }}
 };
 
-export  { findAll, remove, changeFieldInput, save };
+export  { findAll, remove, changeFieldInput, save, update, findById };

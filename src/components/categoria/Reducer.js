@@ -10,6 +10,7 @@ export default (state = stateInitial, action) => {
     switch (action.type) {
         case TypeAction.LISTAR_CATEGORY:
             return { ...state, ...data };
+        case TypeAction.FIND_ID:
         case TypeAction.MODIFIED_VALUE_FIELD:
         case TypeAction.CLEAN_FORM:
             return { ...state, description: data.description };

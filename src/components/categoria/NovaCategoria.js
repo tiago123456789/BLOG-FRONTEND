@@ -3,13 +3,33 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
 import Panel from "../template/Panel";
-import { changeFieldInput, save } from "./Actions";
+import { changeFieldInput, save, update, findById } from "./Actions";
 import {bindActionCreators} from "redux";
 
 class NovaCategoria extends Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     save() {
-        this.props.save({ description: this.props.description });
+        const id = this.getIdCategoryEdition();
+        if (id) {
+            this.props.update(id, { description: this.props.description })
+        } else {
+            this.props.save({ description: this.props.description });
+        }
+    }
+
+    getIdCategoryEdition() {
+        return this.props.match.params.id;
+    }
+
+    componentWillMount() {
+        const id = this.getIdCategoryEdition();
+        if (id) {
+            this.props.findById(id);
+        }
     }
 
     render() {
@@ -36,8 +56,13 @@ class NovaCategoria extends Component {
     }
 }
 
+const mapStateToProps = (state) => ({ description: state.category.description });
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ save: save, changeFieldInput: changeFieldInput }, dispatch)
+    return bindActionCreators({
+        findById: findById, update: update,
+        save: save, changeFieldInput: changeFieldInput
+    }, dispatch)
 };
 
-export default connect(null, mapDispatchToProps)(NovaCategoria);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NovaCategoria);

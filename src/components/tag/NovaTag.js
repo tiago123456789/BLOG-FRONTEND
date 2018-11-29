@@ -7,6 +7,7 @@ import Button from "../template/Button";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import { modifiedDataForm, save, update, findById } from "./Actions";
+import {toastr} from "react-redux-toastr";
 
 class NovaTag extends Component {
 
@@ -16,23 +17,41 @@ class NovaTag extends Component {
     }
 
     getIdTagEdition() {
-        const id = this.props.match.params.id || null;
-        return id;
+        return this.props.match.params.id || null;
+    }
+
+    checkFieldsValid() {
+        let invalidFields = [];
+        const name = this.props.name;
+
+        if (name == null || name.length == 0) {
+            invalidFields.push("name");
+        }
+
+        const existFieldsInvalids = invalidFields.length > 0;
+        if (existFieldsInvalids) {
+            toastr.error("Tag", `The fields: ${invalidFields.join(",")} are invalids!`)
+        }
+
+        return !existFieldsInvalids;
     }
 
     save() {
         const id = this.getIdTagEdition();
-        if (id) {
-            this.props.update(id, { name: this.props.name })
-        } else {
-            this.props.save({ name: this.props.name })
+        if (this.checkFieldsValid()) {
+            if (id) {
+                this.props.update(id, { name: this.props.name })
+            } else {
+                this.props.save({ name: this.props.name })
+            }
         }
     }
 
     componentWillMount() {
         const id = this.getIdTagEdition();
-        console.log(id);
-        if (id) this.props.findById(id);
+        if (id) {
+            this.props.findById(id);
+        }
     }
 
     render() {

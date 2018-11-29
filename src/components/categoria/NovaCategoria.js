@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import { toastr } from "react-redux-toastr";
 
 import Panel from "../template/Panel";
 import { changeFieldInput, save, update, findById } from "./Actions";
@@ -12,12 +13,30 @@ class NovaCategoria extends Component {
         super(props);
     }
 
+    checkFieldsValid() {
+        let invalidFields = [];
+        const descricao = this.props.description;
+
+        if (descricao == null || descricao.length == 0) {
+            invalidFields.push("description");
+        }
+
+        const existFieldsInvalids = invalidFields.length > 0;
+        if (existFieldsInvalids) {
+            toastr.error("Category", `The fields: ${invalidFields.join(",")} are invalids!`)
+        }
+
+        return !existFieldsInvalids;
+    }
+
     save() {
         const id = this.getIdCategoryEdition();
-        if (id) {
-            this.props.update(id, { description: this.props.description })
-        } else {
-            this.props.save({ description: this.props.description });
+        if (this.checkFieldsValid()) {
+            if (id) {
+                this.props.update(id, { description: this.props.description })
+            } else {
+                this.props.save({ description: this.props.description });
+            }
         }
     }
 

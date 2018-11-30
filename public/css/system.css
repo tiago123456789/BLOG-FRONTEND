@@ -1,3 +1,11 @@
 .panel {
     margin: 3px;
 }
+
+.text-white {
+    color: #ffffff;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

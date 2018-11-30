@@ -6,11 +6,14 @@ import ListaTag from "../components/tag/ListaTag";
 import NovaTag from "../components/tag/NovaTag";
 import ListaCategoria from "../components/categoria/ListaCategoria";
 import NovaCategoria from "../components/categoria/NovaCategoria";
+import Login from "../components/auth/Login";
 
 export default () => (
     <Routes>
         <Switch>
+            <Route exact path="/auth" component={Login}/>
             <PainelAdmin>
+
                 <Route exact path="/categoria" component={ListaCategoria}/>
                 <Route exact path="/categoria/nova" component={NovaCategoria}/>
                 <Route exact path="/categoria/:id/editar" component={NovaCategoria}/>

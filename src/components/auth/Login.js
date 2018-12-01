@@ -12,6 +12,7 @@ class Login extends Component {
 
     authenticate() {
         this.props.authenticate({ email: this.props.email, password: this.props.password });
+        this.props.history.push("/tag");
     }
 
     render() {
@@ -57,7 +58,10 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({ email: state.auth.email, password: state.auth.password });
+const mapStateToProps = (state) => ({ 
+    email: state.auth.email,
+    password: state.auth.password
+});
 const mapDispatchToProps = (dispatch) => bindActionCreators(
     { authenticate: authenticate, changeFieldForm: changeFieldForm }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

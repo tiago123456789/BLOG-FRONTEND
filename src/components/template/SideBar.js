@@ -32,7 +32,7 @@ export default class Menu extends Component {
                 <li key={indice} id={item.id}
                     onClick={() => this.setItemActive(item.id)}
                     className={this.getClassCssToItem(item)}>
-                            <a href="#">
+                            <a>
                                 <i className={item.icon}></i>
                                 <span>{item.text}</span>
                                 <span className="pull-right-container">

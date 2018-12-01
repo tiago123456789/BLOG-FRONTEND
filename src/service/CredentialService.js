@@ -5,7 +5,7 @@ export default class CredentialService {
     store(credentials) {
         const { accessToken, refreshToken } = credentials;
         this.setAccessToken(accessToken);
-        this.refreshToken(refreshToken);
+        this.setRefreshToken(refreshToken);
     }
 
     getAccessTokenWithPrefix() {

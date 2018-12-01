@@ -2,7 +2,8 @@ import TypeAction from "../../config/TypeAction";
 
 const initialState = {
     email: "",
-    password: ""
+    password: "",
+    redirect: false
 };
 
 export default (state = initialState, action) => {

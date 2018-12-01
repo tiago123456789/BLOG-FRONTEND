@@ -6,7 +6,7 @@ import { toastr } from "react-redux-toastr";
 const authService = new AuthService();
 
 const changeFieldForm = (key, value) => {
-    return { type: TypeAction.MODIFIED_VALUE_FIELD, data: { [key]: value }};
+    return { type: TypeAction.MODIFIED_VALUE_FIELD, data: { [key]: value, field: key }};
 }
 
 const authenticate = (credentials) => {
@@ -14,12 +14,15 @@ const authenticate = (credentials) => {
         try {
             const result = await authService.login(credentials);
             toastr.success("Welcome panel admin blog!!!");
-            console.log(result);
+            return dispatch(clearForm());
         } catch(error) {
-            console.log(error.response);
             toastr.error("Auth", ErrorResponseService.getMsgErroInReponse(error));
         }        
     }
+}
+
+const clearForm = () => {
+    return { type: TypeAction.CLEAN_FORM, data: { email: "", password: "" } };
 }
 
 export { changeFieldForm, authenticate }

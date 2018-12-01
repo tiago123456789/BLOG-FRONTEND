@@ -36,7 +36,7 @@ class Login extends Component {
                             <div className="form-group has-feedback">
                                 <input type="password"
                                     value={this.props.senha}
-                                    onChange={(event) => this.props.changeFieldForm("senha", event.target.value)}
+                                    onChange={(event) => this.props.changeFieldForm("password", event.target.value)}
                                     className="form-control" placeholder="Password" />
                                 <span className="fa  fa-lock form-control-feedback"></span>
                             </div>

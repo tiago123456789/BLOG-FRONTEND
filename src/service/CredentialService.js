@@ -2,6 +2,12 @@ import App from "../config/App";
 
 export default class CredentialService {
 
+    store(credentials) {
+        const { accessToken, refreshToken } = credentials;
+        this.setAccessToken(accessToken);
+        this.refreshToken(refreshToken);
+    }
+
     getAccessTokenWithPrefix() {
         return `${App.KEY_PREFIX_TOKEN}${this.getAccessToken()}`
     }

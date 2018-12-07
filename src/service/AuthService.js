@@ -23,23 +23,9 @@ export default class AuthService extends AbstractService {
             .then(this.getDataOfResponse);
     }
 
-    async hasAccess() {
+    hasAccess() {
         const accessToken = this._credentialService.getAccessToken();
-        const refreshToken = this._credentialService.getRefreshToken();
-
         const isValidAccessToken = this._tokenService.isValid(accessToken);
-        const isValidRefreshToken = this._tokenService.isValid(refreshToken);
-        
-        if (!isValidAccessToken && isValidRefreshToken) {
-            const result = await this.loginByRefreshToken(refreshToken);
-            this._credentialService.store(result);
-            return true;
-        }
-        
-        if (isValidAccessToken) {
-            return true;
-        }
-
-        return false;
+        return isValidAccessToken;        
     }
 }

@@ -7,20 +7,24 @@ import NovaTag from "../components/tag/NovaTag";
 import ListaCategoria from "../components/categoria/ListaCategoria";
 import NovaCategoria from "../components/categoria/NovaCategoria";
 import Login from "../components/auth/Login";
-import { default as ProtectedRoute } from "../components/route/ProtectedRoute";
+import AuthService from "../service/AuthService";
+
+const authService = new AuthService();
+const ProtectedRoute = ({ ...props }) =>  {
+    return authService.hasAccess() ? <Route {...props}/> : <Redirect to="/auth"/>;
+}
 
 export default () => (
     <Routes>
         <Switch>
-            <Route exact path="/auth" component={Login}/>
+            <Route exact path="/auth" component={Login} />
             <PainelAdmin>
-                <ProtectedRoute path="/categoria" component={ListaCategoria}/>
-                <Route exact path="/categoria/nova" component={NovaCategoria}/>
-                <Route exact path="/categoria/:id/editar" component={NovaCategoria}/>
-
-                <Route exact path="/tag" component={ListaTag}/>
-                <Route exact path="/tag/nova" component={NovaTag}/>
-                <Route exact path="/tag/:id/editar" component={NovaTag}/>
+                <ProtectedRoute path="/categoria" component={ListaCategoria} />
+                <ProtectedRoute path="/categoria/nova" component={NovaCategoria} />
+                <ProtectedRoute path="/categoria/:id/editar" component={NovaCategoria} />
+                <ProtectedRoute path="/tag/nova" component={NovaTag} />
+                <ProtectedRoute path="/tag/:id/editar" component={NovaTag} />
+                <ProtectedRoute path="/tag" component={ListaTag} />
             </PainelAdmin>
             <Redirect to="/tag" />
         </Switch>

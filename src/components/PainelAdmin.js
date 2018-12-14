@@ -3,6 +3,7 @@ import {HashRouter} from "react-router-dom";
 import Header from './template/Header';
 import SideBar from './template/SideBar';
 import WrapperContent from "./template/WrapperContent";
+import App from "../config/App";
 
 
 export default class PainelAdmin extends Component {
@@ -15,7 +16,7 @@ export default class PainelAdmin extends Component {
         return (
         <HashRouter >
             <div>
-                <Header />
+                <Header logout={this.logout} />
                 <SideBar />
                 <WrapperContent >
                     {this.props.children}

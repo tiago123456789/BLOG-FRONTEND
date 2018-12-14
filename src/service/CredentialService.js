@@ -8,6 +8,11 @@ export default class CredentialService {
         this.setRefreshToken(refreshToken);
     }
 
+    removeAll() {
+        localStorage.removeItem(App.KEY_ACCESS_TOKEN);
+        localStorage.removeItem(App.KEY_REFRESH_TOKEN);  
+    }
+
     getAccessTokenWithPrefix() {
         return `${App.KEY_PREFIX_TOKEN}${this.getAccessToken()}`
     }

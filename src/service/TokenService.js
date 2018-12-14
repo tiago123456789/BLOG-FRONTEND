@@ -6,7 +6,7 @@ export default class TokenService {
         if (!token || !this._isJwt(token)) {
             return false;
         }
-        console.log(token);
+
         const { exp } = this._getPayload(token);
         const dateCurrent = Date.now();
         

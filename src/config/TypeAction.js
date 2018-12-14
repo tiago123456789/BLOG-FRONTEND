@@ -6,4 +6,5 @@ export default class TypeAction {
     static ADD_TAG = "ADD_TAG";
     static CLEAN_FORM = "CLEAN_FORM";
     static MODIFIED_VALUE_FIELD = "MODIFIED_VALUE_FIELD";
+    static USER_AUTHENTICATED = "USER_AUTHENTICATED"
 }

@@ -11,7 +11,9 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case TypeAction.MODIFIED_VALUE_FIELD:
             const value = data[data.field];
-            return {...state, [data.field]: value };
+            return { ...state, [data.field]: value };
+        case TypeAction.USER_AUTHENTICATED:
+            return { ...state, redirect: data.redirect }
         case TypeAction.CLEAN_FORM:
             return { ...state, ...data };
         default:

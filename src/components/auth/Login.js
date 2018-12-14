@@ -10,9 +10,15 @@ class Login extends Component {
         this.authenticate = this.authenticate.bind(this);
     }
 
-    authenticate() {
+    authenticate(event) {
+        event.preventDefault();
         this.props.authenticate({ email: this.props.email, password: this.props.password });
-        this.props.history.push("/tag");
+    }
+
+    componentDidUpdate() {
+        if (this.props.redirect) {
+            this.props.history.push("/tag");
+        }
     }
 
     render() {
@@ -48,9 +54,6 @@ class Login extends Component {
                                 </div>
                             </div>
                         </form>
-
-                        <br />
-                        <a className="cursor-pointer">Eu esqueci minha senha</a><br />
                     </div>
                 </div>
             </div>
@@ -60,7 +63,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({ 
     email: state.auth.email,
-    password: state.auth.password
+    password: state.auth.password,
+    redirect: state.auth.redirect
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators(
     { authenticate: authenticate, changeFieldForm: changeFieldForm }, dispatch);

@@ -17,7 +17,10 @@ const authenticate = (credentials) => {
             const result = await authService.login(credentials);
             toastr.success("Welcome panel admin blog!!!");
             credentialsService.store(result);
-            return dispatch(clearForm());
+            return dispatch([
+                { type: TypeAction.USER_AUTHENTICATED, data: { redirect: true }},
+                clearForm()
+            ]);
         } catch(error) {
             toastr.error("Auth", ErrorResponseService.getMsgErroInReponse(error));
         }        

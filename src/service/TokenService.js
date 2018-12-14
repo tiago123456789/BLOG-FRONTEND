@@ -6,12 +6,15 @@ export default class TokenService {
         if (!token || !this._isJwt(token)) {
             return false;
         }
-
-        const payloadToken = this._getPayload(token);
-        const dateExpiredToken = payloadToken.exp;
+        console.log(token);
+        const { exp } = this._getPayload(token);
         const dateCurrent = Date.now();
-        const timeExpirationGreatThanDateCurrent = dateExpiredToken < Date.now() / 1000;
-        return timeExpirationGreatThanDateCurrent;
+        
+        if (exp < (new Date().getTime() / 1000)) {
+            return false;
+        }
+
+        return true;
     }
 
     _getPayload(token) {

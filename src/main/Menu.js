@@ -41,6 +41,24 @@ const menu = [
                 url: "/categoria"
             }
         ]
+    },
+    {
+        active: false,
+        id: "article",
+        icon: "fa fa-list",
+        text: "Artigo",
+        childrens: [
+            {
+                icon: "fa fa-file",
+                text: "Nova artigo",
+                url: "/categoria/nova"
+            },
+            {
+                icon: "fa fa-file",
+                text: "Lista de artigos",
+                url: "/categoria"
+            }
+        ]
     }
 ];
 

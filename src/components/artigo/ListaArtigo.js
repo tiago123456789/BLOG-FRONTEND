@@ -9,6 +9,9 @@ import { bindActionCreators } from "redux";
 
 class ListaArtigo extends Component {
 
+    getBodyTable() {
+        
+    }
     componentDidMount() {
         this.props.findAll();
         console.log(this.props.articles);

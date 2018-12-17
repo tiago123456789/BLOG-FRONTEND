@@ -51,12 +51,12 @@ const menu = [
             {
                 icon: "fa fa-file",
                 text: "Nova artigo",
-                url: "/categoria/nova"
+                url: "/artigo/novo"
             },
             {
                 icon: "fa fa-file",
                 text: "Lista de artigos",
-                url: "/categoria"
+                url: "/artigo"
             }
         ]
     }

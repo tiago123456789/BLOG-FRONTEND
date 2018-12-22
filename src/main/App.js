@@ -8,6 +8,7 @@ import ListaCategoria from "../components/categoria/ListaCategoria";
 import NovaCategoria from "../components/categoria/NovaCategoria";
 import Login from "../components/auth/Login";
 import ListaArtigo from "../components/artigo/ListaArtigo";
+import NovoArtigo from "../components/artigo/NovoArtigo";
 import AuthService from "../service/AuthService";
 import CredentialService from "../service/CredentialService";
 
@@ -30,9 +31,9 @@ export default () => (
                 <ProtectedRoute exact path="/tag/nova" component={NovaTag} />
                 <ProtectedRoute exact path="/tag/:id/editar" component={NovaTag} />
                 <ProtectedRoute exact path="/tag" component={ListaTag} />
-
                 <ProtectedRoute exact path="/artigo" component={ListaArtigo} />
-                {/* <ProtectedRoute exact path="/tag" component={ListaTag} /> */}
+                <ProtectedRoute exact path="/artigo/novo" component={NovoArtigo} />
+
                 <ProtectedRoute exact path="/logout" render={() => {
                     credentialService.removeAll();
                     return <Redirect to="/auth" />

@@ -14,7 +14,6 @@ class ListaArtigo extends Component {
     }
     componentDidMount() {
         this.props.findAll();
-        console.log(this.props.articles);
     }
 
     render() {
@@ -45,6 +44,8 @@ class ListaArtigo extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({ articles: state.article.articles })
-const mapDispatchToProps = (dispatch) => bindActionCreators({ findAll: findAll }, dispatch);
+const mapStateToProps = (state) => ({ tags: state.tag.tags, articles: state.article.articles })
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+     findAllTag: TagAction.listar, findAll: findAll
+}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ListaArtigo);

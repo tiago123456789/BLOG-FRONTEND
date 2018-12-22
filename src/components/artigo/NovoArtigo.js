@@ -41,7 +41,13 @@ class NovoArtigo extends Component {
             <div>
                 <Link to={"/artigo/novo"}>
                     <Button size="small" color="primary">
-                        <i className="fa fa-plus"></i> &nbsp; Novo
+                        <i className="fa fa-plus"></i> &nbsp; Gravar
+                    </Button>
+                </Link>
+                &nbsp;
+                <Link to={"/artigo"}>
+                    <Button size="small" color="danger">
+                        <i className="fa fa-close"></i> &nbsp; Cancelar
                     </Button>
                 </Link>
                 <br />
@@ -55,7 +61,7 @@ class NovoArtigo extends Component {
 
                         <div className="form-group" >
                             <label>Content:</label>
-                            <Editor style={{ "border": "1px solid black" }}
+                            <Editor
                                 editorState={this.state.editorState}
                                 toolbarClassName="toolbarClassName"
                                 wrapperClassName="wrapperClassName"

@@ -10,7 +10,29 @@ const findAll = () => {
             type: TypeAction.LISTAR_ARTICLES, data: { articles: articles }
         });
     }
-}
+};
 
+const addCategory = (event) => {
+    return { type: TypeAction.ADD_CATEGORY, data: { category: event.target.value } };
+};
 
-export { findAll }
+const addTag = (event) => {
+    return { type: TypeAction.ADD_TAG_IN_ARTICLE, data: { tag: event.target.value } };
+};
+
+const removeTag = (value) => {
+    return (dispath, getState) => {
+        console.log(getState())
+        const positionItemRemove = getState().tagsSelected.indexOf(value);
+        return dispath({ type: TypeAction.REMOVE_TAG, data: { positionItemRemove: positionItemRemove }});
+    }
+};
+
+const removeCategory = (value) => {
+    return (dispath, getState) => {
+        const positionItemRemove = getState().categoriesSelected.indexOf(value);
+        return dispath({ type: TypeAction.REMOVE_CATEGORY, data: { positionItemRemove: positionItemRemove }});
+    }
+};
+
+export { findAll, addCategory, addTag, removeCategory, removeTag };

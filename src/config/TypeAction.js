@@ -7,5 +7,9 @@ export default class TypeAction {
     static ADD_TAG = "ADD_TAG";
     static CLEAN_FORM = "CLEAN_FORM";
     static MODIFIED_VALUE_FIELD = "MODIFIED_VALUE_FIELD";
-    static USER_AUTHENTICATED = "USER_AUTHENTICATED"
+    static USER_AUTHENTICATED = "USER_AUTHENTICATED";
+    static ADD_CATEGORY = "ADD_CATEGORY";
+    static ADD_TAG_IN_ARTICLE = "ADD_TAG_IN_ARTICLE";
+    static REMOVE_TAG = "REMOVE_TAG";
+    static REMOVE_CATEGORY = "REMOVE_CATEGORY"
 }

@@ -5,6 +5,8 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import Button from "../template/Button";
 import Panel from "../template/Panel";
+import Badge from "../template/Badge";
+
 
 import * as TagAction from "../tag/Actions";
 import * as CategoryAction from "../categoria/Actions"
@@ -12,6 +14,7 @@ import * as CategoryAction from "../categoria/Actions"
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { EditorState } from 'draft-js';
+import { addCategory, addTag, removeTag, removeCategory } from "./Actions";
 
 class NovoArtigo extends Component {
 
@@ -34,6 +37,18 @@ class NovoArtigo extends Component {
 
     getListOptions(itens, labelKey) {
         return itens.map((item, indice) => (<option key={indice}>{item[labelKey]}</option>))
+    }
+
+    getCategoriesSelected() {
+        return this.props.categoriesSelected.map(category => (
+            <Badge text={category} remover={() => this.props.removeCategory(category)}/>)
+        );
+    }
+
+    getTagsSelected() {
+        return this.props.tagsSelected.map(tag => (
+            <Badge text={tag} remover={() => this.props.removeCategory(tag)}/>)
+        );        
     }
 
     render() {
@@ -70,20 +85,26 @@ class NovoArtigo extends Component {
                             />
                         </div>
 
-                        <div className="form-group" >
+                        <div className="form-group  col-md-6 col-sm-6 col-xs-6" >
                             <label>Categories:</label>
-                            <select className="form-control" >
+                            <select className="form-control" onChange={this.props.addCategory}>
                                 <option value="" >Selected one category</option>
                                 {this.getListOptions(this.props.categories, "description")}
                             </select>
+                            <div className="col-md-12">
+                                {this.getCategoriesSelected()}
+                            </div>
                         </div>
 
-                        <div className="form-group" >
+                        <div className="form-group col-md-6  col-sm-6 col-xs-6" >
                             <label>Tags:</label>
-                            <select className="form-control" >
+                            <select className="form-control" onChange={this.props.addTag}>
                                 <option value="" >Selected one tag</option>
                                 {this.getListOptions(this.props.tags, "name")}
                             </select>
+                            <div className="col-md-12">
+                                {this.getTagsSelected()}
+                            </div>
                         </div>
                     </form>
                 </Panel>
@@ -91,9 +112,18 @@ class NovoArtigo extends Component {
         )
     }
 }
-const mapStateToProps = (state) => ({ categories: state.category.categories, tags: state.tag.tags });
+const mapStateToProps = (state) => ({ 
+    tagsSelected: state.article.tagsSelected,
+    categoriesSelected: state.article.categoriesSelected,
+    categories: state.category.categories,
+    tags: state.tag.tags
+});
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     findAllCategories: CategoryAction.findAll,
-    findAllTags: TagAction.listar
+    findAllTags: TagAction.listar,
+    addCategory: addCategory,
+    addTag: addTag,
+    removeCategory: removeCategory,
+    removeTag: removeTag
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NovoArtigo);

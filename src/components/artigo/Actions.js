@@ -22,15 +22,14 @@ const addTag = (event) => {
 
 const removeTag = (value) => {
     return (dispath, getState) => {
-        console.log(getState())
-        const positionItemRemove = getState().tagsSelected.indexOf(value);
+        const positionItemRemove = getState().article.tagsSelected.indexOf(value);
         return dispath({ type: TypeAction.REMOVE_TAG, data: { positionItemRemove: positionItemRemove }});
     }
 };
 
 const removeCategory = (value) => {
     return (dispath, getState) => {
-        const positionItemRemove = getState().categoriesSelected.indexOf(value);
+        const positionItemRemove = getState().article.categoriesSelected.indexOf(value);
         return dispath({ type: TypeAction.REMOVE_CATEGORY, data: { positionItemRemove: positionItemRemove }});
     }
 };

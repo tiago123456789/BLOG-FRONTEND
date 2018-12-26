@@ -20,11 +20,11 @@ export default (state = initialState, action) => {
         case TypeAction.REMOVE_TAG:
             const tagsRemove = state.tagsSelected;
             tagsRemove.splice(data.positionItemRemove, quantidadeItemRemover);
-            return { ...state, tagsSelected: tagsRemove };
+            return { ...state, tagsSelected: [...tagsRemove] };
         case TypeAction.REMOVE_CATEGORY:
             const categoriesRemove = state.categoriesSelected;
             categoriesRemove.splice(data.positionItemRemove, quantidadeItemRemover);
-            return { ...state, categoriesSelected: categoriesRemove };
+            return { ...state, categoriesSelected: [...categoriesRemove] };
         default:
             return state;
     }

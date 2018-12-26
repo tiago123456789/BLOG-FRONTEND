@@ -47,7 +47,7 @@ class NovoArtigo extends Component {
 
     getTagsSelected() {
         return this.props.tagsSelected.map(tag => (
-            <Badge text={tag} remover={() => this.props.removeCategory(tag)}/>)
+            <Badge text={tag} remover={() => this.props.removeTag(tag)}/>)
         );        
     }
 

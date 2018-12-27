@@ -13,7 +13,12 @@ export default (state = initialState, action) => {
     const data = action.data;
     switch (action.type) {
         case TypeAction.CLEAN_FORM: 
-            return { ...state, ...data };
+            return { 
+                ...state, 
+                title: data.title, 
+                tagsSelected: data.tagsSelected,
+                categoriesSelected: data.categoriesSelected
+            };
         case TypeAction.ADD_CATEGORY:
             const categories = [...state.categoriesSelected, data.category];
             return { ...state, categoriesSelected: categories }
@@ -30,6 +35,8 @@ export default (state = initialState, action) => {
             return { ...state, categoriesSelected: [...categoriesRemove] };
         case TypeAction.MODIFIED_VALUE_FIELD:
             return { ...state, [data.field]: data.value };
+        case TypeAction.LISTAR_ARTICLES:
+            return { ...state, articles: data.articles }
         default:
             return state;
     }

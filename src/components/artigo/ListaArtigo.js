@@ -9,8 +9,14 @@ import { bindActionCreators } from "redux";
 
 class ListaArtigo extends Component {
 
-    getBodyTable() {
-        
+    getArticles() {
+        return this.props.articles.map(article => {
+            return (
+                <Panel type="primary" title={article.title}>
+                    {article.content}
+                </Panel>
+            )
+        }) 
     }
     
     componentDidMount() {
@@ -27,19 +33,7 @@ class ListaArtigo extends Component {
                 </Link>
                 <br />
                 <br />
-                <Panel type="primary" title="Artigos">
-                        <table className="table table-striped text-center">
-                            <thead>
-                                <tr>
-                                    <th>Description</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    {/* <NotFoundRegister display={!this.hasCategories()} /> */}
-                </Panel>
+                {this.getArticles()}
             </div>
         );
     }

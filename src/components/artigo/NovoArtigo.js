@@ -47,13 +47,13 @@ class NovoArtigo extends Component {
     }
 
     getCategoriesSelected() {
-        return this.props.categoriesSelected.map(category => (
+        return (this.props.categoriesSelected || []).map(category => (
             <Badge text={category} remover={() => this.props.removeCategory(category)} />)
         );
     }
 
     getTagsSelected() {
-        return this.props.tagsSelected.map(tag => (
+        return (this.props.tagsSelected || []).map(tag => (
             <Badge text={tag} remover={() => this.props.removeTag(tag)} />)
         );
     }
@@ -72,6 +72,7 @@ class NovoArtigo extends Component {
             }
         };
         this.props.save(artigo);
+        this.setState({ editorState: EditorState.createEmpty() })
     }
 
     render() {
@@ -92,7 +93,7 @@ class NovoArtigo extends Component {
                     <form>
                         <div className="form-group" >
                             <label>Title:</label>
-                            <input type="text" value={this.props.titles}
+                            <input type="text" value={this.props.title}
                                 onChange={(event) => this.props.changeDataFieldForm("title", event.target.value)}
                                 className="form-control" />
                         </div>

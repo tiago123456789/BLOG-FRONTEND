@@ -1,8 +1,9 @@
 import TypeAction from "../../config/TypeAction";
 
 const initialState = {
+    title: "",
     articles: [],
-    tagsSelected: [],
+    tagsSelected:   [],
     categoriesSelected: []
 };
 
@@ -11,6 +12,8 @@ const quantidadeItemRemover = 1;
 export default (state = initialState, action) => {
     const data = action.data;
     switch (action.type) {
+        case TypeAction.CLEAN_FORM: 
+            return { ...state, ...data };
         case TypeAction.ADD_CATEGORY:
             const categories = [...state.categoriesSelected, data.category];
             return { ...state, categoriesSelected: categories }
@@ -25,6 +28,8 @@ export default (state = initialState, action) => {
             const categoriesRemove = state.categoriesSelected;
             categoriesRemove.splice(data.positionItemRemove, quantidadeItemRemover);
             return { ...state, categoriesSelected: [...categoriesRemove] };
+        case TypeAction.MODIFIED_VALUE_FIELD:
+            return { ...state, [data.field]: data.value };
         default:
             return state;
     }

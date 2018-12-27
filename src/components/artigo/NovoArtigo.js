@@ -7,23 +7,30 @@ import Button from "../template/Button";
 import Panel from "../template/Panel";
 import Badge from "../template/Badge";
 
+import TokenService from "../../service/TokenService";
+import CredentialService from "../../service/CredentialService";
 
 import * as TagAction from "../tag/Actions";
 import * as CategoryAction from "../categoria/Actions"
-
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { EditorState } from 'draft-js';
-import { addCategory, addTag, removeTag, removeCategory } from "./Actions";
+import { 
+    addCategory, addTag, removeTag, save,
+    removeCategory, changeDataFieldForm
+} from "./Actions";
 
 class NovoArtigo extends Component {
 
     constructor(props) {
         super(props);
+        this.tokenService = new TokenService();
+        this.credentialService = new CredentialService();
         this.state = {
             editorState: EditorState.createEmpty()
         }
         this.onEditorStateChange = this.onEditorStateChange.bind(this);
+        this.gravar = this.gravar.bind(this);
     }
 
     onEditorStateChange(editorState) {
@@ -41,24 +48,38 @@ class NovoArtigo extends Component {
 
     getCategoriesSelected() {
         return this.props.categoriesSelected.map(category => (
-            <Badge text={category} remover={() => this.props.removeCategory(category)}/>)
+            <Badge text={category} remover={() => this.props.removeCategory(category)} />)
         );
     }
 
     getTagsSelected() {
         return this.props.tagsSelected.map(tag => (
-            <Badge text={tag} remover={() => this.props.removeTag(tag)}/>)
-        );        
+            <Badge text={tag} remover={() => this.props.removeTag(tag)} />)
+        );
+    }
+
+    gravar() {
+        const content = document.querySelector("div[data-block] div[data-offset-key]").innerHTML
+        const payloadToken = this.tokenService.getPayload(this.credentialService.getAccessToken());
+        const artigo = {
+            title: this.props.title,
+            category: this.props.categoriesSelected,
+            tags: this.props.tagsSelected,
+            content: content,
+            author: {
+                id: payloadToken.id,
+                name: payloadToken.name
+            }
+        };
+        this.props.save(artigo);
     }
 
     render() {
         return (
             <div>
-                <Link to={"/artigo/novo"}>
-                    <Button size="small" color="primary">
-                        <i className="fa fa-plus"></i> &nbsp; Gravar
-                    </Button>
-                </Link>
+                <Button size="small" color="primary" action={this.gravar}>
+                    <i className="fa fa-plus"></i> &nbsp; Gravar
+                </Button>
                 &nbsp;
                 <Link to={"/artigo"}>
                     <Button size="small" color="danger">
@@ -71,7 +92,9 @@ class NovoArtigo extends Component {
                     <form>
                         <div className="form-group" >
                             <label>Title:</label>
-                            <input type="text" className="form-control" />
+                            <input type="text" value={this.props.titles}
+                                onChange={(event) => this.props.changeDataFieldForm("title", event.target.value)}
+                                className="form-control" />
                         </div>
 
                         <div className="form-group" >
@@ -112,11 +135,12 @@ class NovoArtigo extends Component {
         )
     }
 }
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
     tagsSelected: state.article.tagsSelected,
     categoriesSelected: state.article.categoriesSelected,
     categories: state.category.categories,
-    tags: state.tag.tags
+    tags: state.tag.tags,
+    title: state.article.title
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     findAllCategories: CategoryAction.findAll,
@@ -124,6 +148,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     addCategory: addCategory,
     addTag: addTag,
     removeCategory: removeCategory,
-    removeTag: removeTag
+    removeTag: removeTag,
+    changeDataFieldForm: changeDataFieldForm,
+    save: save
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NovoArtigo);

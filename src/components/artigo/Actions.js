@@ -1,7 +1,13 @@
+import { toastr } from "react-redux-toastr";
+
 import ArtigoService from "../../service/ArtigoService";
 import TypeAction from "../../config/TypeAction";
 
 const artigoService = new ArtigoService();
+
+const changeDataFieldForm = (field, data) => {
+    return { type: TypeAction.MODIFIED_VALUE_FIELD , data: { field: field, value: data }};
+}
 
 const findAll = () => {
     return async dispatch => {
@@ -34,4 +40,18 @@ const removeCategory = (value) => {
     }
 };
 
-export { findAll, addCategory, addTag, removeCategory, removeTag };
+const save = (data) => {
+    return async dispatch => {
+        await artigoService.save(data);
+        toastr.success("Article created success!!!");
+        return dispatch(cleanForm());
+    }
+} 
+
+const cleanForm = () => {
+    return { type: TypeAction.CLEAN_FORM, data: { title: "", categoriesSelected: [], tagsSelected: [] }};
+}
+
+export { 
+    findAll, addCategory, addTag, save,
+    removeCategory, removeTag, changeDataFieldForm };

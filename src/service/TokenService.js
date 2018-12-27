@@ -7,7 +7,7 @@ export default class TokenService {
             return false;
         }
 
-        const { exp } = this._getPayload(token);
+        const { exp } = this.getPayload(token);
         const dateCurrent = Date.now();
         
         if (exp < (new Date().getTime() / 1000)) {
@@ -17,7 +17,7 @@ export default class TokenService {
         return true;
     }
 
-    _getPayload(token) {
+    getPayload(token) {
         const decodeToken = jwt.decode(token);
         return decodeToken;
     }

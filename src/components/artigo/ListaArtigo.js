@@ -3,24 +3,48 @@ import { Link } from "react-router-dom";
 
 import Button from "../template/Button"
 import Panel from "../template/Panel";
+import HtmlService from "../../service/HtmlService";
+
 import { findAll } from "./Actions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
+const ContentArticle = ({ content }) => <div>{content}</div>;
+
 class ListaArtigo extends Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     getArticles() {
-        return this.props.articles.map(article => {
+        return this.props.articles.map((article, indice) => {
             return (
-                <Panel type="primary" title={article.title}>
-                    {article.content}
+                <Panel type="primary" key={indice} title={article.title}>
+                    <div key={indice} dangerouslySetInnerHTML={{ __html: HtmlService.transformStringHtmlToHtml(article.content) }} />
+                    <div className="pull-right">
+                        <Button size="xs" color="danger">
+                            <i className="fa fa-trash"></i>
+                        </Button>
+                        &nbsp;
+                        <Button size="xs" color="warning">
+                            <i className="fa fa-pencil"></i>
+                        </Button>
+                    </div>
                 </Panel>
             )
-        }) 
+        });
     }
-    
+
     componentDidMount() {
         this.props.findAll();
+    }
+
+    renderContentArticles() {
+        this.props.articles.forEach((article, indice) => {
+            const element = document.querySelector(`#${article._id}`);
+            element.innerHTML = article.content;
+        });
     }
 
     render() {

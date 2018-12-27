@@ -27,9 +27,11 @@ class ListaArtigo extends Component {
                             <i className="fa fa-trash"></i>
                         </Button>
                         &nbsp;
-                        <Button size="xs" color="warning">
-                            <i className="fa fa-pencil"></i>
-                        </Button>
+                        <Link to={`/artigo/${article._id}/editar`}>
+                            <Button size="xs" color="warning">
+                                <i className="fa fa-pencil"></i>
+                            </Button>
+                        </Link>
                     </div>
                 </Panel>
             )

@@ -5,7 +5,7 @@ import Button from "../template/Button"
 import Panel from "../template/Panel";
 import HtmlService from "../../service/HtmlService";
 
-import { findAll } from "./Actions";
+import { findAll, remove } from "./Actions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -23,7 +23,7 @@ class ListaArtigo extends Component {
                 <Panel type="primary" key={indice} title={article.title}>
                     <div key={indice} dangerouslySetInnerHTML={{ __html: HtmlService.transformStringHtmlToHtml(article.content) }} />
                     <div className="pull-right">
-                        <Button size="xs" color="danger">
+                        <Button size="xs" color="danger" action={() => this.props.remove(article._id)}>
                             <i className="fa fa-trash"></i>
                         </Button>
                         &nbsp;
@@ -64,5 +64,5 @@ class ListaArtigo extends Component {
 }
 
 const mapStateToProps = (state) => ({ tags: state.tag.tags, articles: state.article.articles })
-const mapDispatchToProps = (dispatch) => bindActionCreators({ findAll: findAll }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ findAll: findAll, remove: remove }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ListaArtigo);

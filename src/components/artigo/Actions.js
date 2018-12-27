@@ -52,6 +52,14 @@ const cleanForm = () => {
     return { type: TypeAction.CLEAN_FORM, data: { title: "", categoriesSelected: [], tagsSelected: [] }};
 }
 
+const remove = (id) => {
+    return async dispatch => {
+        await artigoService.remove(id);
+        toastr.success("Deleted success!!");
+        return dispatch(findAll());
+    }
+}
+
 export { 
-    findAll, addCategory, addTag, save,
+    findAll, addCategory, addTag, save, remove,
     removeCategory, removeTag, changeDataFieldForm };

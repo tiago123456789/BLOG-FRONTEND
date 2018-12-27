@@ -12,6 +12,12 @@ const quantidadeItemRemover = 1;
 export default (state = initialState, action) => {
     const data = action.data;
     switch (action.type) {
+        case TypeAction.FIND_ID:
+            return { ...state, 
+                title: data.title, 
+                tagsSelected: data.tagsSelected,
+                categoriesSelected: data.categoriesSelected
+            };
         case TypeAction.CLEAN_FORM: 
             return { 
                 ...state, 

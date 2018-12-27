@@ -18,6 +18,18 @@ const findAll = () => {
     }
 };
 
+const findById = (id) => {
+    return async dispatch => {
+        const article = await artigoService.findById(id);
+        return dispatch({ 
+            type: TypeAction.FIND_ID, data: { 
+                title: article.title, categoriesSelected: [article.category],
+                tagsSelected: [article.tags]
+            }
+        });
+    }
+}
+
 const addCategory = (event) => {
     return { type: TypeAction.ADD_CATEGORY, data: { category: event.target.value } };
 };
@@ -61,5 +73,5 @@ const remove = (id) => {
 }
 
 export { 
-    findAll, addCategory, addTag, save, remove,
+    findAll, addCategory, addTag, save, remove, findById,
     removeCategory, removeTag, changeDataFieldForm };

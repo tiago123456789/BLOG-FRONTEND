@@ -12,4 +12,5 @@ export default class TypeAction {
     static ADD_TAG_IN_ARTICLE = "ADD_TAG_IN_ARTICLE";
     static REMOVE_TAG = "REMOVE_TAG";
     static REMOVE_CATEGORY = "REMOVE_CATEGORY"
+    static 
 }

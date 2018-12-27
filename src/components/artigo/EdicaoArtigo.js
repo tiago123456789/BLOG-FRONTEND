@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { EditorState } from 'draft-js';
 import { 
-    addCategory, addTag, removeTag, save,
+    addCategory, addTag, removeTag, save, findById,
     removeCategory, changeDataFieldForm
 } from "./Actions";
 
@@ -33,11 +33,16 @@ class EditarArtigo extends Component {
         this.gravar = this.gravar.bind(this);
     }
 
+    getIdArtigo() {
+        return this.props.match.params.id;
+    }
+
     onEditorStateChange(editorState) {
         this.setState({ editorState });
     }
 
     componentWillMount() {
+        this.props.findById(this.getIdArtigo());
         this.props.findAllTags();
         this.props.findAllCategories();
     }
@@ -151,6 +156,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     removeCategory: removeCategory,
     removeTag: removeTag,
     changeDataFieldForm: changeDataFieldForm,
-    save: save
+    save: save,
+    findById: findById
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(EditarArtigo);

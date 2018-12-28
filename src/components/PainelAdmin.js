@@ -31,7 +31,7 @@ export default class PainelAdmin extends Component {
 
     componentWillUnmount() {
         if (this._timeInterval) {
-            this._timeInterval.cleanInterval();
+            clearInterval(this._timeInterval);
         }
     }
 

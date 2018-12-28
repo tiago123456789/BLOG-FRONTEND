@@ -42,13 +42,6 @@ class ListaArtigo extends Component {
         this.props.findAll();
     }
 
-    renderContentArticles() {
-        this.props.articles.forEach((article, indice) => {
-            const element = document.querySelector(`#${article._id}`);
-            element.innerHTML = article.content;
-        });
-    }
-
     render() {
         return (
             <div>

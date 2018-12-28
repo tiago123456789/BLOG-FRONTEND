@@ -14,9 +14,12 @@ import * as TagAction from "../tag/Actions";
 import * as CategoryAction from "../categoria/Actions"
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { EditorState } from 'draft-js';
-import { 
-    addCategory, addTag, removeTag, save, findById,
+import { stateFromHTML } from 'draft-js-import-html';
+import { stateToHTML } from "draft-js-export-html";
+
+import { convertToRaw,  EditorState, ContentState } from 'draft-js';
+import {
+    addCategory, addTag, removeTag, update, findById,
     removeCategory, changeDataFieldForm
 } from "./Actions";
 
@@ -30,7 +33,7 @@ class EditarArtigo extends Component {
             editorState: EditorState.createEmpty()
         }
         this.onEditorStateChange = this.onEditorStateChange.bind(this);
-        this.gravar = this.gravar.bind(this);
+        this.editar = this.editar.bind(this);
     }
 
     getIdArtigo() {
@@ -47,24 +50,28 @@ class EditarArtigo extends Component {
         this.props.findAllCategories();
     }
 
+    componentWillReceiveProps() {
+        this.setState({ editorState: EditorState.createWithContent(stateFromHTML(this.props.conteudo))});        
+    }
+
     getListOptions(itens, labelKey) {
         return itens.map((item, indice) => (<option key={indice}>{item[labelKey]}</option>))
     }
 
     getCategoriesSelected() {
-        return (this.props.categoriesSelected || []).map(category => (
-            <Badge text={category} remover={() => this.props.removeCategory(category)} />)
+        return (this.props.categoriesSelected || []).map((category, indice) => (
+            <Badge key={indice} text={category} remover={() => this.props.removeCategory(category)} />)
         );
     }
 
     getTagsSelected() {
-        return (this.props.tagsSelected || []).map(tag => (
-            <Badge text={tag} remover={() => this.props.removeTag(tag)} />)
+        return (this.props.tagsSelected || []).map((tag, indice) => (
+            <Badge key={indice} text={tag} remover={() => this.props.removeTag(tag)} />)
         );
     }
 
-    gravar() {
-        const content = document.querySelector("div[data-block] div[data-offset-key]").innerHTML
+    editar() {
+        const content = stateToHTML(this.state.editorState.getCurrentContent());
         const payloadToken = this.tokenService.getPayload(this.credentialService.getAccessToken());
         const artigo = {
             title: this.props.title,
@@ -76,14 +83,14 @@ class EditarArtigo extends Component {
                 name: payloadToken.name
             }
         };
-        this.props.save(artigo);
+        this.props.update(this.getIdArtigo(), artigo);
         this.setState({ editorState: EditorState.createEmpty() })
     }
 
     render() {
         return (
             <div>
-                <Button size="small" color="primary" action={this.gravar}>
+                <Button size="small" color="primary" action={this.editar}>
                     <i className="fa fa-plus"></i> &nbsp; Gravar
                 </Button>
                 &nbsp;
@@ -141,13 +148,16 @@ class EditarArtigo extends Component {
         )
     }
 }
-const mapStateToProps = (state) => ({
-    tagsSelected: state.article.tagsSelected,
-    categoriesSelected: state.article.categoriesSelected,
-    categories: state.category.categories,
-    tags: state.tag.tags,
-    title: state.article.title
-});
+const mapStateToProps = (state) => {
+    return {
+        tagsSelected: state.article.tagsSelected,
+        categoriesSelected: state.article.categoriesSelected,
+        categories: state.category.categories,
+        tags: state.tag.tags,
+        title: state.article.title,
+        conteudo: state.article.content
+    }
+};
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     findAllCategories: CategoryAction.findAll,
     findAllTags: TagAction.listar,
@@ -156,7 +166,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     removeCategory: removeCategory,
     removeTag: removeTag,
     changeDataFieldForm: changeDataFieldForm,
-    save: save,
+    update: update,
     findById: findById
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(EditarArtigo);

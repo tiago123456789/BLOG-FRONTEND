@@ -2,6 +2,7 @@ import TypeAction from "../../config/TypeAction";
 
 const initialState = {
     title: "",
+    content: "",
     articles: [],
     tagsSelected:   [],
     categoriesSelected: []
@@ -14,6 +15,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case TypeAction.FIND_ID:
             return { ...state, 
+                content: data.content,
                 title: data.title, 
                 tagsSelected: data.tagsSelected,
                 categoriesSelected: data.categoriesSelected

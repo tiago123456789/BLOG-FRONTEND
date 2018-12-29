@@ -7,6 +7,7 @@ import NovaTag from "../components/tag/NovaTag";
 import ListaCategoria from "../components/categoria/ListaCategoria";
 import NovaCategoria from "../components/categoria/NovaCategoria";
 import Login from "../components/auth/Login";
+import Home from "../components/Home";
 import ListaArtigo from "../components/artigo/ListaArtigo";
 import NovoArtigo from "../components/artigo/NovoArtigo";
 import EdicaoArtigo from "../components/artigo/EdicaoArtigo";
@@ -25,6 +26,7 @@ export default () => (
     <Routes>
         <Switch>
             <Route exact path="/auth" component={Login} />
+            <Route exact path="/home" component={Home} />            
             <PainelAdmin>
                 <ProtectedRoute exact path="/categoria" component={ListaCategoria} />
                 <ProtectedRoute exact path="/categoria/nova" component={NovaCategoria} />
@@ -41,7 +43,7 @@ export default () => (
                     return <Redirect to="/auth" />
                 }} />
             </PainelAdmin>
-            <Redirect to="/tag" />
+            <Redirect to="/auth" />
         </Switch>
     </Routes>
 )
